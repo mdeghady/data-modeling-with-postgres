@@ -87,7 +87,7 @@ def connect_to_db():
     the connection after finishing the process
     '''
     try:
-        conn = psycopg2.connect("dbname = sparkifydb user = postgres password=mostafa1208")
+        conn = psycopg2.connect("dbname = sparkifydb user = postgres password=")
     except psycopg2.Error as e:
         print("Couldnot connect to database")
         print(e)
