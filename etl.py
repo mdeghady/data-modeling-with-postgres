@@ -52,6 +52,7 @@ def processing_log_files(cur , log_files):
         df = df[df['page'] == 'NextSong']
         df['ts'] = pd.to_datetime(df['ts'], unit='ms')
 
+        #Transforming the ts table to create new time tables
         time_data = (df['ts'], df['ts'].dt.hour, df['ts'].dt.day,df['ts'].dt.isocalendar().week, df['ts'].dt.month,\
                      df['ts'].dt.year, df['ts'].dt.weekday)
         cols_names = ('start_time', 'hour', 'day', 'week', 'month', 'year', 'weekday')
@@ -67,6 +68,7 @@ def processing_log_files(cur , log_files):
             insert_into_users(cur, tuple(row.tolist()))
 
         for _, row in df.iterrows():
+            #Find the song and artist ids related to this row
             song_artist_ids = song_select(cur, row['song'], row['length'], row['artist'])
 
             if song_artist_ids:
