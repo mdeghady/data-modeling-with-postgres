@@ -54,6 +54,7 @@ create_songplays = ("""CREATE TABLE IF NOT EXISTS songplays(
                         CONSTRAINT FK_start_time FOREIGN KEY (start_time) REFERENCES time (start_time)
                         )""")
 
+#append drop and create tables as an iterable
 create_table_quries = [create_users , create_songs , create_artists , create_time , create_songplays]
 drop_table_quries = [drop_users , drop_songs , drop_artists , drop_time , drop_songplays]
 
