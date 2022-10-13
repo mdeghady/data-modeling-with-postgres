@@ -1,10 +1,13 @@
 import psycopg2
+
+#drop quaries
 drop_songplays = "DROP TABLE IF EXISTS songplays"
 drop_users = "DROP TABLE IF EXISTS users"
 drop_songs = "DROP TABLE IF EXISTS songs"
 drop_artists = "DROP TABLE IF EXISTS artists"
 drop_time = "DROP TABLE IF EXISTS time"
 
+#Create tables quaries
 create_users = ("""CREATE TABLE IF NOT EXISTS users (
                     user_id int PRIMARY KEY,
                     first_name varchar NOT NULL,
@@ -56,6 +59,12 @@ drop_table_quries = [drop_users , drop_songs , drop_artists , drop_time , drop_s
 
 
 def insert_into_songs(cur , values):
+    '''
+
+    :param cur: cursor to execute the queries in the database
+    :param values: inserted values into the songs table
+    Inserting the values data to songs Dimension table
+    '''
     query = """INSERT INTO songs(song_id,title , artist_id , year , duration)
                 VALUES (%s,%s,%s,%s,%s)
                 ON CONFLICT (song_id)
@@ -68,6 +77,11 @@ def insert_into_songs(cur , values):
         print(e)
 
 def insert_into_artists(cur , values):
+    '''
+    :param cur: cursor to execute the queries in the database
+    :param values: inserted values into the artists table
+    Inserting the values data to artists Dimension table
+    '''
     query = """INSERT INTO artists(artist_id, name, location, latitude, longitude)
                     VALUES (%s,%s,%s,%s,%s)
                     ON CONFLICT (artist_id)
@@ -80,6 +94,11 @@ def insert_into_artists(cur , values):
         print(e)
 
 def insert_into_time(cur , values):
+    '''
+    :param cur: cursor to execute the queries in the database
+    :param values: inserted values into the time table
+    Inserting the values data to time Dimension table
+    '''
     query = """INSERT INTO time(start_time, hour, day, week, month, year, weekday)
                         VALUES (%s,%s,%s,%s,%s,%s,%s)
                         ON CONFLICT (start_time)
@@ -91,6 +110,11 @@ def insert_into_time(cur , values):
         print(e)
 
 def insert_into_users(cur , values):
+    '''
+    :param cur: cursor to execute the queries in the database
+    :param values: inserted values into the users table
+    Inserting the values data to users Dimension table
+    '''
     query = """INSERT INTO users(user_id, first_name, last_name, gender, level)
                     VALUES (%s,%s,%s,%s,%s)
                     ON CONFLICT (user_id)
@@ -103,6 +127,16 @@ def insert_into_users(cur , values):
         print(e)
 
 def song_select(cur , song , duration , artist):
+    '''
+
+    :param cur: cursor to execute the queries in the database
+    :param song: song name to search in songs table
+    :param duration: duration of the song to search in songs table
+    :param artist: artist name to search in artists table
+    :return: artist_id & song_id
+    using the parameters to extract artist_id & song_id from the artists table &
+    songs tables to igest them into songplays table
+    '''
     query = """SELECT s.song_id , a.artist_id FROM songs s
                 INNER JOIN artists a USING(artist_id)
                     WHERE s.title = %s  AND s.duration = %s AND a.name = %s"""
@@ -116,6 +150,11 @@ def song_select(cur , song , duration , artist):
     return song_artist_ids
 
 def insert_into_songplays(cur , values):
+    '''
+    :param cur: cursor to execute the queries in the database
+    :param values: inserted values into the songplays table
+    Inserting the values data to users Fact table
+    '''
     query = """INSERT INTO songplays( start_time, user_id, level, song_id, artist_id, session_id,
                 location, user_agent)
                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s);"""
@@ -127,6 +166,12 @@ def insert_into_songplays(cur , values):
         print(e)
 
 def select_all(cur , table_name):
+    '''
+
+    :param cur: cursor to execute the queries in the database
+    :param table_name: table which we will select all rows from it
+    Select all rows in a given table and print them
+    '''
     query = f"SELECT * FROM {table_name}"
 
     try:
