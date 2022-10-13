@@ -14,4 +14,5 @@ Build an ETL pipeline using Python.
 
 On the database side, I defined fact and dimension tables for a Star Schema for a specific focus. On the other hand, the ETL pipeline would transfer data from files located in two local directories into these tables in Postgres using Python and SQL.
 
-<img border="0"  src="ERD.png" width="900" height="802">
+<img border="0"  src="ERD.png" width="850" height="802">
+ 
