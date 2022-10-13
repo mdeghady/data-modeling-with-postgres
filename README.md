@@ -1,6 +1,6 @@
 # Data Modeling with Postgre
 
-This project the follow along this medium <a href="https://medium.com/@simonazhangzy/data-modeling-awith-postgres-database-43fd7c33d93b">blog</a>
+I followed along in this project with this medium <a href="https://medium.com/@simonazhangzy/data-modeling-awith-postgres-database-43fd7c33d93b">blog</a>
 
 # Introduction
 
